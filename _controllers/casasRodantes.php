@@ -1,5 +1,5 @@
 <?
-class Home 
+class Casas_Rodantes 
 {
 	function index(){
 		$site = get_instance();
@@ -9,7 +9,7 @@ class Home
 		
 		//$site->loadModel('Datos', 'datos');
 		
-		echo $parser->parseContent('home', array());
+		echo $parser->parseContent('casas_rodantes', array());
 	}
 }
 ?>

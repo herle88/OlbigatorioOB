@@ -44,6 +44,14 @@ class CoreObligatorioOB
 					$method = array_shift( $method_params );
 					$controllerInstance->remap( $method, $method_params );
 				}
+				else
+				{
+					$this->throw404();
+				}
+			}
+			else
+			{
+				$this->throw404();
 			}
 		}
 		else
@@ -60,7 +68,6 @@ class CoreObligatorioOB
 			require_once( $path );
 			$class_name = ucfirst( $model_name );
 			$instance = new $class_name();
-			
 			if( $instance != '' )
 				$this->$local_instance = $instance;
 			return $instance;
@@ -101,6 +108,15 @@ class CoreObligatorioOB
 		closedir( $ch );
 	}	
 	
+	function throw404 (){
+		header("HTTP/1.0 404 Not Found");
+		$this->loadLibrary('TemplateParser');
+		
+		$parser = new TemplateParser();
+		
+		echo $parser->parseContent('404', array());
+	}
+	
 	//DB
 	
 	function query ( $sql, $data = array() )
@@ -125,6 +141,7 @@ class CoreObligatorioOB
 		return mysql_fetch_object( $resource );
 	}
 	
+	
 	function result_array ( $resource )
 	{
 		return mysql_fetch_array( $resource );
@@ -132,8 +149,8 @@ class CoreObligatorioOB
 	
 	function connect_db ()
 	{
-		@mysql_connect( DB_HOST, DB_USER, DB_PASS ) or die ( 'Estamos actualizando nuestros servidores, regresamos en un rato. (SRV)' );
-		@mysql_select_db( DB_NAME ) or die ( 'Estamos actualizando nuestros servidores, regresamos en un rato. (DB)' );
+		@mysql_connect( DB_HOST, DB_USER, DB_PASS ) or die ( 'Revise los datos del server en _configs' );
+		@mysql_select_db( DB_NAME ) or die ( 'La base no existe, cambiele el nombre en _configs/' );
 		mysql_query('SET NAMES utf8');
 	}
 	
@@ -141,6 +158,7 @@ class CoreObligatorioOB
 	{ 
 		$this->$name = $value; 
 	} 
+	
 	
 }
 ?>

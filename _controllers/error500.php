@@ -1,5 +1,5 @@
 <?
-class Home 
+class Error500 
 {
 	function index(){
 		$site = get_instance();
@@ -9,7 +9,7 @@ class Home
 		
 		//$site->loadModel('Datos', 'datos');
 		
-		echo $parser->parseContent('home', array());
+		echo $parser->parseContent('500', array());
 	}
 }
 ?>
